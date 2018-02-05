@@ -11,17 +11,23 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/about',
       name: 'about',
-      component: About
+      component: About,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/signin',
       name: 'signin',
-      component: Auth
+      component: Auth,
     }
   ]
 })

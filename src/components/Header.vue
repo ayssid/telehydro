@@ -13,9 +13,10 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-              <router-link to="/" tag="li" exact><a>Home</a></router-link>
-              <router-link to="/about" tag="li"><a>About</a></router-link>
-              <router-link to="/signin" tag="li"><a>Sign in</a></router-link>
+              <router-link to="/" tag="li" exact v-if="auth"><a>Home</a></router-link>
+              <router-link to="/about" tag="li"  v-if="auth"><a>About</a></router-link>
+              <router-link to="/signin" tag="li"  v-if="!auth"><a>Sign in</a></router-link>
+              <li><a href="#" v-if="auth">Log Out</a></li>
             <!--<li class="active"><a href="#">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Sign in</a></li>-->
@@ -25,3 +26,14 @@
     </nav>
   </div>
 </template>
+
+<script>
+export default {
+  computed: {
+    auth() {
+      console.log(this.$store.getters.isAuthenticated);
+      return this.$store.getters.isAuthenticated;
+    }
+  }
+}
+</script>

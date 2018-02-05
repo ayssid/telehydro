@@ -2,20 +2,45 @@
   <div class="row">
         <div class="col-md-offset-4 col-md-3">
             <div class="form-login">
-            <h4>Welcome back.</h4>
-            <input type="text" id="userName" class="form-control input-sm chat-input" placeholder="username" />
-            <br>
-            <input type="text" id="userPassword" class="form-control input-sm chat-input" placeholder="password" />
-            <br>
-            <div class="wrapper">
-            <span class="group-btn">     
-                <a href="#" class="btn btn-primary btn-md">login <i class="fa fa-sign-in"></i></a>
-            </span>
-            </div>
+            <form @submit.prevent="onSubmit">
+                <h4>Welcome back.</h4>
+                <input type="email" id="email" class="form-control input-sm chat-input" placeholder="email" v-model="email" />
+                <br>
+                <input type="password" id="userPassword" class="form-control input-sm chat-input" placeholder="password" v-model="password"/>
+                <br>
+                <div class="wrapper">
+                <span class="group-btn">     
+                    <button type="submit">Login</button>
+                    <!--<a href="#" class="btn btn-primary btn-md">login <i class="fa fa-sign-in"></i></a>-->
+                </span>
+                </div>
+            </form>
             </div>
         </div>
     </div>
 </template>
+
+<script>
+export default {
+    data() {
+        return {
+            email: '',
+            password: ''
+        }
+    },
+    methods: {
+        onSubmit() {
+            const formData = {
+                email: this.email,
+                password: this.password
+            }   
+            this.$store.dispatch('login', {email: formData.email, password: formData.password}); 
+        }
+        
+    }
+}
+</script>
+
 
 <style scoped>
 @import url(http://fonts.googleapis.com/css?family=Roboto:400);
