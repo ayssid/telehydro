@@ -9,10 +9,14 @@ const state = {
 
 const mutations = {
     authUser(state, userData) {
-        //console.log(userData);
+        ////console.log(userData);
         state.idToken = userData.token;
         state.userId = userData.userId;
-
+    },
+    clearAuthData(state) {
+        state.idToken = null;
+        state.userId = null;
+    
     }
 };
 
@@ -21,26 +25,67 @@ const actions = {
         axios.post('/verifyPassword?key=AIzaSyAlbZ6z3x-nQbG-hnVyeqiuIKbEBZ_JIUY', 
                     {email: authData.email, password: authData.password, returnSecureToken: true} )
             .then(res => {
-               // console.log(res);
+                //console.log(res);
               commit('authUser', {
                 token: res.data.idToken,
                 userId: res.data.localId
                });
 
-               localStorage.setItem('token', res.data.idToken);
+               const object = {
+                   token : res.data.idToken,
+                   userId : res.data.localId,
+                   expiry: new Date().getTime() + res.data.expiresIn
+                }
 
-               router.replace('/');
+                ////console.log(object);
+                //localStorage.setItem('token', JSON.stringify(object));
+                if(window.localStorage.getItem('token')) { 
+                    window.localStorage.removeItem('token')
+                } 
+
+                window.localStorage.setItem('token', JSON.stringify(object));
+                
+
+                
+               
+                router.replace('/');
             })
             .catch(error => {
-                console.log(error);
+                //console.log(error);
             })
+    },
+    logout({commit}) {
+        commit('clearAuthData');
+        localStorage.removeItem('token');
+        router.replace('/signin');
+        //console.log('router replace');
+    },
+    setAuth({commit, state}) {
+        //console.log('setAuth')
+        let  object = null;
+        object = JSON.parse(window.localStorage.getItem('token'));
+      //  console.log(Number(object.expiry));
+        console.log(new Date().getTime());
+
+       // if() {
+            if(object && !state.idToken ) {
+                if(new Date().getTime() < object.expiry) {
+                    //console.log('authUser');
+                    commit('authUser', {
+                        token: object.token,
+                        userId: object.userId
+                    });
+                }
+            }
+       // } else {
+       //     window.localStorage.removeItem('token')
+        //}
     }
 };
 
 const getters = {
     isAuthenticated(state) {
-       // console.log(state.idToken);
-        return state.idToken ? true : false;
+        return state.idToken ? true : false ;
     }
 };
 

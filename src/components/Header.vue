@@ -9,14 +9,16 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">TeleHydro</a>
+          <router-link to="/" exact class="navbar-brand">TeleHydro</router-link>
+          
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
               <router-link to="/" tag="li" exact v-if="auth"><a>Home</a></router-link>
               <router-link to="/about" tag="li"  v-if="auth"><a>About</a></router-link>
               <router-link to="/signin" tag="li"  v-if="!auth"><a>Sign in</a></router-link>
-              <li><a href="#" v-if="auth">Log Out</a></li>
+              <!--<li><a href="#" v-if="auth">Log Out</a></li>-->
+              <li v-if="auth"><p class="navbar-btn"><button class="btn btn-link" @click="logout" style="text-decoration: none;">Log out</button></p></li>
             <!--<li class="active"><a href="#">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Sign in</a></li>-->
@@ -29,6 +31,11 @@
 
 <script>
 export default {
+  methods: {
+    logout() {
+      this.$store.dispatch('logout');
+    }
+  },
   computed: {
     auth() {
       console.log(this.$store.getters.isAuthenticated);
@@ -37,3 +44,4 @@ export default {
   }
 }
 </script>
+

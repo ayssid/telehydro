@@ -6,6 +6,8 @@ import store from './store/store'
 Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {
+  console.log('before each')
+  store.dispatch('setAuth');
   if(to.meta.requiresAuth) {
     if(store.getters.isAuthenticated) {
       next();
