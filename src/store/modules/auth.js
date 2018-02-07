@@ -43,10 +43,7 @@ const actions = {
                     window.localStorage.removeItem('token')
                 } 
 
-                window.localStorage.setItem('token', JSON.stringify(object));
-                
-
-                
+                window.localStorage.setItem('token', JSON.stringify(object));    
                
                 router.replace('/');
             })
@@ -65,9 +62,8 @@ const actions = {
         let  object = null;
         object = JSON.parse(window.localStorage.getItem('token'));
       //  console.log(Number(object.expiry));
-        console.log(new Date().getTime());
+        //console.log(new Date().getTime());
 
-       // if() {
             if(object && !state.idToken ) {
                 if(new Date().getTime() < object.expiry) {
                     //console.log('authUser');
@@ -77,9 +73,6 @@ const actions = {
                     });
                 }
             }
-       // } else {
-       //     window.localStorage.removeItem('token')
-        //}
     }
 };
 

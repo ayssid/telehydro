@@ -1,18 +1,36 @@
 <template>
-  <div class="home">
-    <img src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <app-temperature :temp="temperature"></app-temperature>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import Temperature from '../components/Home/Temperature.vue';
+
 
 export default {
+  data() {
+    return {
+      temperature: 0
+    }
+  },
+  mqtt: {
+    'temperature': function (val) {
+      console.log('test' + val);
+      
+      this.temperature = parseInt(val);
+      console.log('temperature' + this.temperature);
+    }
+  },
   name: 'home',
   components: {
-    HelloWorld
+    'appTemperature' : Temperature
+  },
+  methods: {
+  },
+  created() {
+    this.$mqtt.subscribe('temperature');
   }
 }
 </script>
