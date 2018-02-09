@@ -6,7 +6,7 @@ import VueMqtt from 'vue-mqtt'
 
 Vue.config.productionTip = false
 
-Vue.use(VueMqtt, 'ws://10.10.180.208:3000', {transports: ['websockets']});
+Vue.use(VueMqtt, 'ws://10.10.180.208:5023', {transports: ['websockets']});
 //Vue.use(VueMqtt, 'ws://iot.eclipse.org:80/ws', {clientId: 'WebClient-' + parseInt(Math.random() * 100000)})
 
 router.beforeEach((to, from, next) => {
