@@ -8,6 +8,7 @@ import store from './store/store'
 Vue.use(Router)
 
 export default new Router({
+  base: '/telehydro/',
   mode: 'history',
   routes: [
     {

@@ -5,14 +5,14 @@
       <div class='inner'>
         <div class='icon'></div>
         <div class='title'>
-          <div class='text'>TEMPERATURE</div>
+          <div class='text'>HUMIDITY</div>
         </div>
         <div class='number'>{{temp}}</div>
-        <div class='measure'>CELCIUS</div>
+        <div class='measure'>%</div>
       </div>
     </div>
   </div>
-</div>
+</div>  
 </template>
 
 <script>
